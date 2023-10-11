@@ -1,28 +1,30 @@
-import React from 'react'
-import Product from './Product'
+import React from 'react';
+import Product from './Product';
 
-const ProductList = (props) => {
-  const { filteredData } = props;
+const ProductList = ({ filteredData, currentPage, itemsPerPage }) => {
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = Math.min((currentPage + 1) * itemsPerPage, filteredData.length);
+  const currentData = filteredData.slice(startIndex, endIndex);
 
   return (
     <>
-    {filteredData.length === 0
-      ? "No items match the search criteria"
-      : filteredData.map((product) => (
-          <Product
-            key={product.id}
-            id={product.id}
-            title={product.title}
-            author= {product.author}
-            country= {product.country}
-            language={product.language}
-            link={product.link}
-            pages={product.pages}
-            year={product.year}
-          />
-        ))}
-        </>
-  )
-}
+      {currentData.length === 0
+        ? "No items match the search criteria"
+        : currentData.map((product) => (
+            <Product
+              key={product.id}
+              id={product.id}
+              title={product.title}
+              author={product.author}
+              country={product.country}
+              language={product.language}
+              link={product.link}
+              pages={product.pages}
+              year={product.year}
+            />
+          ))}
+    </>
+  );
+};
 
-export default ProductList
+export default ProductList;

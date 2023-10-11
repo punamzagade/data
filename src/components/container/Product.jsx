@@ -1,28 +1,13 @@
 
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import { deskpc } from "../../responsive";
 import "../../App.css";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { handleAddItem, handleEdit } from "../../store/reducers/booksReducers";
+import { useDispatch} from "react-redux";
 import axios from "axios";
 
 
 const Product = (item) => {
-  const book = useSelector((state) => state.book);
-  const dispatch = useDispatch();
-
-  const handleSave = async (itm) => {
-    const res = await axios.put(
-      `http://68.178.162.203:8080/application-test-v1.1/books/${itm.id}`,
-      itm
-    );
- 
-
-    // Dispatch an action to update the Redux store with the edited book
-    dispatch(handleEdit({ val: false, item: itm }));
-  };
 
   const handleAddBook=async(item)=>{
     const res=await axios.post("http://localhost:5000/book/create",item);
@@ -38,10 +23,7 @@ const Product = (item) => {
             return (
               <Span key={keys}>
                 <b>{keys}: </b>
-                <input
-                  defaultValue={val}
-                  disabled={book.isEdit && book.item.id === item.id ? false : true}
-                />
+                {val}
               </Span>
             );
           })}
@@ -50,13 +32,7 @@ const Product = (item) => {
           <Button onClick={() => handleAddBook(item)}>
             Add to Books List
           </Button>
-          {book.isEdit && book.item.id === item.id ? (
-            <Button onClick={() => handleSave(item)}>Save</Button>
-          ) : (
-            <Button onClick={() => dispatch(handleEdit({ val: true, item: item }))}>
-              Edit
-            </Button>
-          )}
+         
         </InfoBtn>
       </InfoContainer>
     </Section>

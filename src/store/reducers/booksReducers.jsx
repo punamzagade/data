@@ -6,7 +6,7 @@ const bookSlice=createSlice({
 books:[],
 bookList:[],
 isEdit:false,
-item:null,
+item:{},
     },
     reducers:{
 getAllBooks(state,action){
@@ -18,7 +18,7 @@ state.bookList=action.payload;
 handleEdit(state,action){
 const {val,item}=action.payload;
 state.isEdit=val;
-state.item=state.books.find((itm)=>itm.id===item.id);
+state.item=state.bookList.find((itm)=>itm._id===item._id);
 
 }
     }

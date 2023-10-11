@@ -1,81 +1,39 @@
-import React, { useContext,useState } from 'react';
+import React, {useState } from 'react';
 import styled from 'styled-components';
-import { FaShoppingCart } from "react-icons/fa";
-// import CartContext from '../../ItemStore/Context';
 import { mobi, mobitab, slidermob } from '../responsive';
 import { NavLink } from 'react-router-dom';
-// import "../../App.css";
-// import LoginContext from '../../Auth/LoginContext';
+
 
 
 function Navbarr(props) {
-//  let {cart}=useContext(CartContext);
-// const loginCtx=useContext(LoginContext);
-// const isLoggedIn=loginCtx.isLoggedIn
 const [searchValue, setSearchValue] = useState("");
 const handleChange=(e)=>{
+  console.log(e.target.value)
   setSearchValue(e.target.value);
   props.onFilter(e.target.value);
 }
-
-// const handleLogout=()=>{
-//   cart=[];
-//   loginCtx.logout();
-// }
-
-// const handleSubmit = (e) => {
-//   e.preventDefault();
-//   if (searchValue === '') {
-//     filteredData = productsArr;
-//   } else {
-//     filteredData = productsArr.filter((item) =>
-//       item.title.toLowerCase().includes(searchValue.toLowerCase())
-//     );
-//   }
-// }
   return (
     <>
       <Wrapper >
       <Menul>
         <H1>Logo</H1>
-        {/* <Menu>
-        {/* <NavLink className={"LINK"} to="/"> */}
-          {/* <List>HOME</List> */}
-          {/* </NavLink> */}
-           
-        {/* </Menu> */}
         </Menul>
         <Menur>
           <SearchBar>
             <Input type="text" placeholder="Search..." value={searchValue} onChange={handleChange}/>
             <Button>search</Button>
           </SearchBar>
-          <Account >
-            {/* {isLoggedIn && (
-              <NavLink className={"LINK"} to="/login">
-                <Span onClick={handleLogout}>LOGOUT</Span>
-              </NavLink>
-              )} */}
-              
-             
-              
-              {/* { !isLoggedIn && (<><NavLink className={"LINK"} to="/login">
-                <Span onClick={loginCtx.login}>LOGIN</Span>
-              </NavLink> */}
-              {/* <NavLink className={"LINK"} to="/register">
-              <Span onClick={loginCtx.login}>REGISTER</Span>
-            </NavLink> */}
-      
-              {/*  )} */}
-              {/* <NavLink className={"LINK"} to="/cart"> */}
+          {/* <Account > */}
+          
           <Cart>
+          <NavLink to="/" className={"LINK"}>
           <CartText>STORE</CartText>
-          <NavLink to="/list">
+          </NavLink>
+          <NavLink to="/list" className={"LINK"}>
           <CartText>BOOKLIST</CartText></NavLink>
           {/* <CartCount>{cart.length}</CartCount> */}
           </Cart>
-          {/* </NavLink> */}
-         </Account> 
+         {/* </Account>  */}
         </Menur>
       </Wrapper>
       </>
@@ -103,6 +61,7 @@ ${slidermob({fontSize:"small",padding:"12px 5px"})}
 const Menul=styled.div`
 display: flex;
 flex: 1;
+margin-left: 20px;
 margin-right: 30px;
 ${mobitab({flexDirection: "column"})};
 ${slidermob({marginRight:"10px"})}
@@ -114,18 +73,6 @@ ${mobitab({margin:"0px 50px 10px 20px"})}
 ${slidermob({fontSize:"30px",margin:"0px 30px 10px 10px"})}
 `;
 
-const Menu=styled.ul`
-display: flex;
-justify-content: start;
-align-items: center;
-list-style: none;
-flex: 1;
-`;
-const List=styled.li`
-margin-right:30px;
-cursor: pointer;
-${slidermob({marginRight:"15px"})}
-`;
 const Menur=styled.div`
 display: flex;
 flex: 2;
@@ -156,55 +103,32 @@ outline: none;
 cursor: pointer;
 ${slidermob({padding:"5px"})}
 `;
-const Account=styled.div`
-display: flex;
-align-items: center;
-justify-content: end;
-flex: 1;
-${mobitab({marginBottom:"-13px"})}
-${slidermob({marginBottom:"-7px"})}
-`;
-const Span=styled.span`
-margin-left: 30px;
-cursor: pointer;
-${mobitab({marginLeft:"20px"})}
-${slidermob({marginLeft:"15px"})}
-`;
+
 const Cart=styled.div`
 display: flex;
 align-items: center;
-gap: 30px;
+justify-content: end;
+gap: 20px;
+flex: 1;
 cursor: pointer;
 ${mobitab({marginLeft:"20px"})}
-${slidermob({marginLeft:"10px"})}
+${slidermob({marginLeft:"10px",justifyContent: "center"})}
 `;
 const CartText=styled.span`
+  position: relative;
+  padding: 5px;
+&::after{
+ content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 0;
+        height: 2px;
+        background-color: white;
+        transition: width 0.3s;
+}
+&:hover::after {
+        width: 100%;
+      }
 /* ${mobitab({fontSize:"18px"})} */
-`;
-const CartCount=styled.span`
-display: flex;
-justify-content: center;
-align-items: center;
-margin: -5px 0px 10px -5px;
-padding: 3px;
-height: 14px;
-width: 14px;
-color: black;
-font-weight: bold;
-font-size: 14px;
-border-radius: 50%;
-background-color: white;
-${mobi({margin: "-5px 0px 10px -8px"})}
-`;
-const Container=styled.div`
-background-color: gray;
-color: white;
-padding: 30px;
-display: flex;
-font-size: 70px;
-align-items: center;
-justify-content: center;
-font-weight: bold;
-margin-top: 2px;
-${slidermob({fontSize:"40px"})}
 `;
